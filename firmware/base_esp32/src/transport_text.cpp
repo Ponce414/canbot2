@@ -102,6 +102,10 @@ namespace transport {
 
 void begin(DriveController& drive) {
   g_drive = &drive;
+  // A telemetry line is ~170 bytes; the default 256-byte USB transmit buffer would fit only
+  // one, so a reply sent right after it could be dropped by sendLine(). 1 KB holds several.
+  // Must be set before begin().
+  Serial.setTxBufferSize(1024);
   // On the S3's native USB port the baud rate is ignored (USB has its own speed), but
   // Serial.begin() still sets up the buffers.
   Serial.begin(115200);

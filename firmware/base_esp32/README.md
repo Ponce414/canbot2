@@ -30,7 +30,11 @@ PlatformIO, either the VS Code extension or `pip install platformio`.
   device forwarded into WSL with `usbipd-win`.
 - `env:microros` additionally needs `git`, `cmake` and `python3-pip`
   (`sudo apt install git cmake python3-pip`). Its first build compiles the micro-ROS client
-  library from source and takes several minutes.
+  library from source and takes several minutes. If that build fails with
+  `No module named pip`, PlatformIO's private Python was created without pip; run
+  `~/.platformio/penv/bin/python -m ensurepip` once and build again.
+- The platform is pinned to pioarduino 55.03.312 (Arduino-ESP32 core 3.3.12). Both
+  firmware builds were compile-checked against exactly that version.
 
 Use the board's port labeled **USB** (native USB), not **UART**. On Linux it appears as
 `/dev/ttyACM*` with vendor ID `303a`. If uploads fail, hold BOOT, tap RST, release BOOT,
